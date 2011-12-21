@@ -4,7 +4,7 @@
 # Author:   Aaron Karper
 # Created:  2011-11-29
 #
-from wxGui import MissionGenerator
+from SamGui import MissionGenerator
 import wx
 from helpers import version
 

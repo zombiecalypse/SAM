@@ -8,7 +8,7 @@
 
 from threading import Thread
 import wx, wx.html
-from helpers import *
+from gui_helpers import *
 
 class AboutDialog(wx.Dialog):
 	aboutText = """
@@ -16,7 +16,7 @@ class AboutDialog(wx.Dialog):
 		<body>
 		<h1>SAM {version}</h1>
 		<h2>Space Alert Missions</h2>
-		<div style="bottom: 0">By <b>{author}</b></div>
+		<div style="bottom: 0; position: absolute;">By <b>{author}</b></div>
 	"""
 	def __init__(self, parent):
 		wx.Dialog.__init__(self,parent, wx.NewId(), "About SAM")
@@ -38,14 +38,16 @@ class MissionGenerator(wx.Frame):
 		self._makeMenu()
 	def _makeMenu(self):
 		menuBar = wx.MenuBar()
-		filemenu = wx.Menu()
-		menuBar.Append(filemenu, "&File")
-		helpmenu = wx.Menu()
-		about = helpmenu.Append(-1, "About")
-		self.Bind(wx.EVT_MENU, self.OnAbout, about)
-		menuBar.Append(helpmenu, "&Help")
+		with addMenu(menuBar, "&File") as filemenu:
+			quit = filemenu.Append(-1, "&Quit")
+			self.Bind(wx.EVT_MENU, self.OnQuit, quit)
+		with addMenu(menuBar, "&Help") as helpmenu:
+			about = helpmenu.Append(-1, "About")
+			self.Bind(wx.EVT_MENU, self.OnAbout, about)
 		self.SetMenuBar(menuBar)
 	def OnAbout(self, evt):
 		about = AboutDialog(self)
 		about.ShowModal()
 		about.Destroy()
+	def OnQuit(self, evt):
+		self.Destroy()

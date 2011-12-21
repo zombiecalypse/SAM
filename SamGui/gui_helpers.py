@@ -4,10 +4,12 @@
 # Author:   Aaron Karper
 # Created:  2011-11-29
 import PyLogger
+import wx
+from contextlib import contextmanager
+from helpers import version
 _ = lambda x:x
 __THEADS__ = set()
 
-version = "0.0.0"
 author = "Aaron Karper <maergil@gmail.com>"
 
 _sam_logger = PyLogger.LoggerParent()
@@ -37,3 +39,9 @@ def doAsync(f,callback = _, args = tuple()):
 	__THREADS__.add(t)
 	t.start()
 
+@contextmanager
+def addMenu(bar, name):
+	"Creates a submenu in the `bar` with the given name."
+	menu = wx.Menu()
+	yield menu
+	bar.Append(menu, name)

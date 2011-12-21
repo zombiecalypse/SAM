@@ -1,0 +1,1 @@
+from .wxGui import MissionGenerator
