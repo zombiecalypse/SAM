@@ -6,7 +6,7 @@
 import PyLogger
 import wx
 from contextlib import contextmanager
-from helpers import version
+from ..helpers import version
 _ = lambda x:x
 __THEADS__ = set()
 

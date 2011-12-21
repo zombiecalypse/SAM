@@ -4,9 +4,9 @@
 # Author:   Aaron Karper
 # Created:  2011-11-29
 #
-from SamGui import MissionGenerator
+from Sam import MissionGenerator
+from Sam import version
 import wx
-from helpers import version
 
 class SpaceAlertMissionGeneratorApp(wx.App):
 	def __init__(self, **kargs):
