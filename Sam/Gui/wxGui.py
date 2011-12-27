@@ -109,7 +109,12 @@ class ControllPanel(wx.Panel):
 		slider = LabeledSlider(self, _('Difficulty'), self.TranslateDifficulty, minValue = min, maxValue = max)
 		topSizer.Add(slider, 1, wx.EXPAND | wx.ALL, border=5)
 		topSizer.Add(self.MakeButtons(), 0, wx.CENTER | wx.ALL | wx.ALIGN_RIGHT, border=5)
-		allSizer.Add(topSizer, 0, wx.EXPAND)
+		
+		missionLog = wx.TextCtrl(self, style=wx.TE_MULTILINE)
+		bottomSizer.Add(missionLog, 1, wx.EXPAND | wx.ALL, border=5)
+		
+		allSizer.Add(topSizer, 0, wx.EXPAND | wx.ALIGN_TOP)
+		allSizer.Add(wx.StaticLine(self), 1, wx.EXPAND | wx.ALIGN_TOP)
 		allSizer.Add(bottomSizer, 1, wx.EXPAND)
 		self.SetSizer(allSizer)
 	def MakeButtons(self):

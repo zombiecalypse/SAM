@@ -1,0 +1,65 @@
+# German translation for SAM, highly experimental.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2011-12-27 17:14+CET\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: ENCODING\n"
+"Generated-By: pygettext.py 1.5\n"
+
+
+#: Sam/Gui/wxGui.py:32
+msgid "Ok"
+msgstr "Ok"
+
+#: Sam/Gui/wxGui.py:60
+msgid "File"
+msgstr "Datei"
+
+#: Sam/Gui/wxGui.py:61
+msgid "Quit"
+msgstr "Beenden"
+
+#: Sam/Gui/wxGui.py:63
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: Sam/Gui/wxGui.py:64
+msgid "Languages"
+msgstr "Sprache"
+
+#: Sam/Gui/wxGui.py:70
+msgid "Help"
+msgstr "Hilfe"
+
+#: Sam/Gui/wxGui.py:71
+msgid "About"
+msgstr "Über"
+
+#: Sam/Gui/wxGui.py:109
+msgid "Difficulty"
+msgstr "Schwierigkeitsgrad"
+
+#: Sam/Gui/wxGui.py:122
+msgid "Run"
+msgstr "Start"
+
+#: Sam/Gui/wxGui.py:123
+msgid "Cancel Mission"
+msgstr "Mission abbrechen"
+
+#: Sam/Gui/wxGui.py:136 Sam/Gui/wxGui.py:145
+msgid "Pause"
+msgstr "Pause"
+
+#: Sam/Gui/wxGui.py:142
+msgid "Resume"
+msgstr "Weiter"
+
