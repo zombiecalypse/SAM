@@ -10,6 +10,9 @@ from ..helpers import version
 _ = lambda x:x
 __THEADS__ = set()
 
+def difficulty_range():
+	return (0,10)
+
 def authors():
 	return (
 			"Aaron Karper &lt;maergil@gmail.com&gt;",
@@ -41,6 +44,15 @@ def doAsync(f,callback = _, args = tuple()):
 	t = Thread(call, args=(callback_,args))
 	__THREADS__.add(t)
 	t.start()
+
+class LabeledSlider(wx.Slider):
+	def __init__(self, parent, title, translation, *args, **kargs):
+		wx.Slider(parent, *args, **kargs)
+		sizer = wx.BoxSizer(wx.VERTICAL)
+		sizer.Add(wx.StaticText(parent, label = title))
+		sizer.Add(self)
+		self.label = wx.StaticText(parent, label = '')
+		sizer.Add(self.label)
 
 @contextmanager
 def addMenu(bar, name):
