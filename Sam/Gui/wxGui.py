@@ -50,11 +50,21 @@ class MissionGenerator(wx.Frame):
 					'suicidal']
 	def __init__(self):
 		wx.Frame.__init__(self, None, wx.NewId(), "SAM")
-		self.languages = [dict(name = 'English'), dict(name = 'Deutsch')]
+		self.initLanguages()
 		self._makeMenu()
 		sizer = wx.BoxSizer(wx.VERTICAL)
 		sizer.Add(self._makeControlls(), 0, wx.EXPAND | wx.ALL)
 		sizer.Add(self._makeFeedback(), 1, wx.EXPAND)
+	def initLanguages(self):
+		self.languages = [dict(name = 'English', file=''), 
+							dict(name = 'Deutsch', file='translation_de')]
+		mylocale = wx.Locale()
+		mylocale.AddCatalogLookupPathPrefix('.')
+		for language in self.languages:
+			mylocale.AddCatalog(language['file'])
+		self._ = wx.GetTranslation
+		#For testing:
+		print wx.GetTranslation('file')
 	def _makeMenu(self):
 		menuBar = wx.MenuBar()
 		with addMenu(menuBar, _("File")) as filemenu:
