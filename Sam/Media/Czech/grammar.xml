@@ -1,0 +1,50 @@
+﻿<Settings>
+  <Grammar>Spanish</Grammar>
+  
+  <CommunicationsDownHeader>Ztráta spojení</CommunicationsDownHeader>
+  <CommunicationsDownNoise></CommunicationsDownNoise>
+  <CommunicationsDownFooter>spojení obnoveno</CommunicationsDownFooter>
+
+  <AnnounceBeginFirstPhase>Zahájena první fáze</AnnounceBeginFirstPhase>
+  <AnnounceFirstPhaseEndsInOneMinute>Konec první fáze za jednu minutu</AnnounceFirstPhaseEndsInOneMinute>
+  <AnnounceFirstPhaseEndsInTwentySeconds>Konec první fáze za dvacet vteřin</AnnounceFirstPhaseEndsInTwentySeconds>
+  <AnnounceFirstPhaseEnds>Konec první fáze</AnnounceFirstPhaseEnds>
+  <AnnounceSecondPhaseBegins>Zahájena druhá fáze</AnnounceSecondPhaseBegins>
+  <AnnounceSecondPhaseEndsInOneMinute>Konec druhé fáze za jednu minutu</AnnounceSecondPhaseEndsInOneMinute>
+  <AnnounceSecondPhaseEndsInTwentySeconds>Konec druhé fáze za dvacet vteřin</AnnounceSecondPhaseEndsInTwentySeconds>
+  <AnnounceSecondPhaseEnds>Konec druhé fáze</AnnounceSecondPhaseEnds>
+  <AnnounceThirdPhaseBegins>Zahájena třetí fáze</AnnounceThirdPhaseBegins>
+  <AnnounceThirdPhaseEndsInOneMinute>Konec třetí fáze za jednu minutu</AnnounceThirdPhaseEndsInOneMinute>
+  <AnnounceThirdPhaseEndsInTwentySeconds>Konec třetí fáze za dvacet vteřin</AnnounceThirdPhaseEndsInTwentySeconds>
+  <AnnounceThirdPhaseEnds>Konec třetí fáze</AnnounceThirdPhaseEnds>
+
+  <IncomingData>Příchozí data</IncomingData>
+  <DataTransfer>Přenos dat</DataTransfer>
+
+  <AlertHeader>Alert!!!</AlertHeader>
+  <InternalThreat>Vnitřní ohrožení</InternalThreat>
+  <SeriousInternalThreat>Vážné vnitřní ohrožení</SeriousInternalThreat>
+  <Repeat>Opakuji</Repeat>
+  <UnconfirmedReport>Nepotvrzená informace</UnconfirmedReport>
+
+  <TimeTPlus1>Čas T+1</TimeTPlus1>
+  <TimeTPlus2>Čas T+2</TimeTPlus2>
+  <TimeTPlus3>Čas T+3</TimeTPlus3>
+  <TimeTPlus4>Čas T+4</TimeTPlus4>
+  <TimeTPlus5>Čas T+5</TimeTPlus5>
+  <TimeTPlus6>Čas T+6</TimeTPlus6>
+  <TimeTPlus7>Čas T+7</TimeTPlus7>
+  <TimeTPlus8>Čas T+8</TimeTPlus8>
+
+  <RedAlertLevel0></RedAlertLevel0>
+  <RedAlertLevel1></RedAlertLevel1>
+  <RedAlertLevel2></RedAlertLevel2>
+  <RedAlertLevel3></RedAlertLevel3>
+
+  <ThreatZoneBlue>Ohrožení v modré zóně</ThreatZoneBlue>
+  <ThreatZoneRed>Ohrožení v červené zóně</ThreatZoneRed>
+  <ThreatZoneWhite>Ohrožení v bílé zóně</ThreatZoneWhite>
+  <SeriousThreatZoneBlue>Vážné ohrožení v modré zóně</SeriousThreatZoneBlue>
+  <SeriousThreatZoneRed>Vážné ohrožení v červené zóně</SeriousThreatZoneRed>
+  <SeriousThreatZoneWhite>Vážné ohrožení v bílé zóně</SeriousThreatZoneWhite>
+</Settings>
