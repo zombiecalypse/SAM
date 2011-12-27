@@ -17,7 +17,9 @@ class AboutDialog(wx.Dialog):
 		<body>
 		<h1>SAM {version}</h1>
 		<h2>Space Alert Missions</h2>
-		<div style="bottom: 0; position: absolute;">By <ul><b>{authors}</b></ul></div>
+		<div style="bottom: 0; position: absolute;">By <ul>{authors}</ul></div>
+		</body>
+	</html>
 	"""
 	def __init__(self, parent):
 		wx.Dialog.__init__(self,parent, wx.NewId(), "About SAM")
@@ -27,7 +29,7 @@ class AboutDialog(wx.Dialog):
 			version = version,
 			authors = authors_string
 			))
-		button = wx.Button(self, wx.ID_OK, "Ok")
+		button = wx.Button(self, wx.ID_OK, _("Ok"))
 		sizer = wx.BoxSizer(wx.VERTICAL)
 		sizer.Add(info, 1, wx.EXPAND | wx.ALL, 5)
 		sizer.Add(button, 0, wx.ALIGN_CENTER | wx.ALL)
@@ -94,6 +96,7 @@ class MissionGenerator(wx.Frame):
 	def _makeFeedback(self):
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		return sizer
+	
 class ControllPanel(wx.Panel):
 	def __init__(self, parent):
 		wx.Panel.__init__(self, parent)
@@ -101,18 +104,21 @@ class ControllPanel(wx.Panel):
 		self.parent = parent
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		min, max = difficulty_range()
-		slider = LabeledSlider(self, 'Difficulty', self.TranslateDifficulty, minValue = min, maxValue = max)
-		self.run_button = wx.Button(self, wx.ID_ANY, _('Run'))
-		self.cancel_button = wx.Button(self, wx.ID_ANY, _('Cancel Mission'))
-		button_sizer = wx.BoxSizer(wx.HORIZONTAL)
-		button_sizer.Add(self.run_button)
-		button_sizer.Add(self.cancel_button)
-		self.cancel_button.Disable()
-		sizer.Add(slider,1, flag = wx.EXPAND | wx.ALL)
-		sizer.Add(button_sizer,1, wx.EXPAND)
+		slider = LabeledSlider(self, _('Difficulty'), self.TranslateDifficulty, minValue = min, maxValue = max)
+		
+		sizer.Add(slider,1, wx.EXPAND | wx.ALL, border=5)
+		sizer.Add(self.MakeButtons(),1, wx.ALL | wx.ALIGN_RIGHT, border=5)
 		self.SetSizer(sizer)
 		self.Bind(wx.EVT_BUTTON, self.OnRun, self.run_button)
 		self.Bind(wx.EVT_BUTTON, self.OnCancel, self.cancel_button)
+	def MakeButtons(self):
+		self.run_button = wx.Button(self, wx.ID_ANY, _('Run'))
+		self.cancel_button = wx.Button(self, wx.ID_ANY, _('Cancel Mission'))
+		self.cancel_button.Disable()
+		button_sizer = wx.BoxSizer(wx.HORIZONTAL)
+		button_sizer.Add(self.run_button)
+		button_sizer.Add(self.cancel_button)
+		return button_sizer
 	def TranslateDifficulty(self, value):
 		return _(self.parent.TranslateDifficulty(value))
 	def OnRun(self, evt):
