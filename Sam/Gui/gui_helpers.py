@@ -13,7 +13,7 @@ __THEADS__ = set()
 def authors():
 	return (
 			"Aaron Karper &lt;maergil@gmail.com&gt;",
-		"Stefan Moser")
+		"Stefan Moser &lt;smmuzi@gmail.com&gt;")
 
 _sam_logger = PyLogger.LoggerParent()
 debug = _sam_logger(PyLogger.Debug)
