@@ -102,31 +102,40 @@ class ControllPanel(wx.Panel):
 		wx.Panel.__init__(self, parent)
 		self.mission_player = None
 		self.parent = parent
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		allSizer = wx.BoxSizer(wx.VERTICAL)
+		topSizer = wx.BoxSizer(wx.HORIZONTAL)
+		bottomSizer = wx.BoxSizer(wx.HORIZONTAL)
 		min, max = difficulty_range()
 		slider = LabeledSlider(self, _('Difficulty'), self.TranslateDifficulty, minValue = min, maxValue = max)
-		
-		sizer.Add(slider,1, wx.EXPAND | wx.ALL, border=5)
-		sizer.Add(self.MakeButtons(),1, wx.ALL | wx.ALIGN_RIGHT, border=5)
-		self.SetSizer(sizer)
-		self.Bind(wx.EVT_BUTTON, self.OnRun, self.run_button)
-		self.Bind(wx.EVT_BUTTON, self.OnCancel, self.cancel_button)
+		topSizer.Add(slider, 1, wx.EXPAND | wx.ALL, border=5)
+		topSizer.Add(self.MakeButtons(), 0, wx.CENTER | wx.ALL | wx.ALIGN_RIGHT, border=5)
+		allSizer.Add(topSizer, 0, wx.EXPAND)
+		allSizer.Add(bottomSizer, 1, wx.EXPAND)
+		self.SetSizer(allSizer)
 	def MakeButtons(self):
 		self.run_button = wx.Button(self, wx.ID_ANY, _('Run'))
 		self.cancel_button = wx.Button(self, wx.ID_ANY, _('Cancel Mission'))
 		self.cancel_button.Disable()
+		self.Bind(wx.EVT_BUTTON, self.OnRun, self.run_button)
+		self.Bind(wx.EVT_BUTTON, self.OnCancel, self.cancel_button)
 		button_sizer = wx.BoxSizer(wx.HORIZONTAL)
-		button_sizer.Add(self.run_button)
-		button_sizer.Add(self.cancel_button)
+		button_sizer.Add(self.run_button, wx.ALIGN_RIGHT)
+		button_sizer.Add(self.cancel_button, wx.ALIGN_RIGHT)
 		return button_sizer
 	def TranslateDifficulty(self, value):
 		return _(self.parent.TranslateDifficulty(value))
 	def OnRun(self, evt):
-		if self.mission_player is None or self.mission_player.done:
+		if self.mission_player is None:
 			self.cancel_button.Enable()
 			self.run_button.SetLabel(_('Pause'))
 			mission_player = Mission.generate(self.slider.GetValue())
 			mission_player.subscribe(parent.OnMissionPlayer)
 			mission_player.start()
+		elif not self.mission_player.done:
+			self.mission_player.pause()
+			self.run_button.SetLabel(_('Resume'))
+		else:
+			self.mission_player.resume()
+			self.run_button.SetLabel(_('Pause'))
 	def OnCancel(self, evt):
 		return self.parent.OnCancel(evt)
