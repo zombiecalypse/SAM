@@ -31,7 +31,7 @@ class AboutDialog(wx.Dialog):
 			))
 		button = wx.Button(self, wx.ID_OK, _("Ok"))
 		sizer = wx.BoxSizer(wx.VERTICAL)
-		sizer.Add(info, 1, wx.EXPAND | wx.ALL, 5)
+		sizer.Add(info, 1, wx.EXPAND | wx.ALL, border=5)
 		sizer.Add(button, 0, wx.ALIGN_CENTER | wx.ALL)
 		self.SetSizer(sizer)
 		self.Layout()
@@ -53,8 +53,24 @@ class MissionGenerator(wx.Frame):
 		self.initLanguages()
 		self._makeMenu()
 		sizer = wx.BoxSizer(wx.VERTICAL)
-		sizer.Add(self._makeControlls(), 0, wx.EXPAND | wx.ALL)
+		sizer.Add(self._makeControlls(), 0, wx.EXPAND | wx.ALIGN_TOP)
+		sizer.Add(wx.StaticLine(self), 0, wx.EXPAND | wx.ALIGN_TOP)
 		sizer.Add(self._makeFeedback(), 1, wx.EXPAND)
+		self.SetSizer(sizer)
+		self.Bind(wx.EVT_CLOSE, self.OnClose)
+	def OnClose(self, event):
+		#TODO: make mission player
+		self.mission_player = None
+		if not self.mission_player is None:
+			dial = wx.MessageDialog(None, 'Are you sure you want to exit?', 'ZOMFG?!?',
+				wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION)
+			ret = dial.ShowModal()
+			if ret == wx.ID_YES:
+				self.Destroy()
+			else:
+				event.Veto()
+		else: 
+			self.Destroy()
 	def initLanguages(self):
 		self.languages = [dict(name = 'English', file=''), 
 							dict(name = 'Deutsch', file='translation_de')]
@@ -105,6 +121,16 @@ class MissionGenerator(wx.Frame):
 		pass
 	def _makeFeedback(self):
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		right = wx.BoxSizer(wx.VERTICAL)
+		left = wx.BoxSizer(wx.VERTICAL)
+		label = wx.StaticText(self, label=_('Mission Log'))
+		missionLog = wx.TextCtrl(self, style=wx.TE_MULTILINE)
+		left.Add(label, 0, wx.TOP | wx.LEFT, border=5)
+		left.Add(missionLog, 1, wx.EXPAND | wx.ALL, border=5)
+		description = wx.StaticText(self, label=_('Stuff happens'))
+		right.Add(description, 1, wx.CENTER | wx.EXPAND)
+		sizer.Add(left, 1, wx.EXPAND)
+		sizer.Add(right, 1, wx.EXPAND)
 		return sizer
 	
 class ControllPanel(wx.Panel):
@@ -112,21 +138,12 @@ class ControllPanel(wx.Panel):
 		wx.Panel.__init__(self, parent)
 		self.mission_player = None
 		self.parent = parent
-		allSizer = wx.BoxSizer(wx.VERTICAL)
-		topSizer = wx.BoxSizer(wx.HORIZONTAL)
-		bottomSizer = wx.BoxSizer(wx.HORIZONTAL)
+		sizer = wx.BoxSizer(wx.HORIZONTAL)		
 		min, max = difficulty_range()
 		slider = LabeledSlider(self, _('Difficulty'), self.TranslateDifficulty, minValue = min, maxValue = max)
-		topSizer.Add(slider, 1, wx.EXPAND | wx.ALL, border=5)
-		topSizer.Add(self.MakeButtons(), 0, wx.CENTER | wx.ALL | wx.ALIGN_RIGHT, border=5)
-		
-		missionLog = wx.TextCtrl(self, style=wx.TE_MULTILINE)
-		bottomSizer.Add(missionLog, 1, wx.EXPAND | wx.ALL, border=5)
-		
-		allSizer.Add(topSizer, 0, wx.EXPAND | wx.ALIGN_TOP)
-		allSizer.Add(wx.StaticLine(self), 1, wx.EXPAND | wx.ALIGN_TOP)
-		allSizer.Add(bottomSizer, 1, wx.EXPAND)
-		self.SetSizer(allSizer)
+		sizer.Add(slider, 1, wx.EXPAND | wx.ALL, border=5)
+		sizer.Add(self.MakeButtons(), 0, wx.CENTER | wx.ALL | wx.ALIGN_RIGHT, border=5)
+		self.SetSizer(sizer)
 	def MakeButtons(self):
 		self.run_button = wx.Button(self, wx.ID_ANY, _('Run'))
 		self.cancel_button = wx.Button(self, wx.ID_ANY, _('Cancel Mission'))
