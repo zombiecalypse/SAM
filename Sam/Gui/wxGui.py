@@ -97,23 +97,30 @@ class MissionGenerator(wx.Frame):
 class ControllPanel(wx.Panel):
 	def __init__(self, parent):
 		wx.Panel.__init__(self, parent)
+		self.mission_player = None
 		self.parent = parent
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		min, max = difficulty_range()
 		slider = LabeledSlider(self, 'Difficulty', self.TranslateDifficulty, minValue = min, maxValue = max)
-		run_button = wx.Button(self, wx.ID_ANY, 'Run')
-		cancel_button = wx.Button(self, wx.ID_ANY, 'Cancel Mission')
+		self.run_button = wx.Button(self, wx.ID_ANY, _('Run'))
+		self.cancel_button = wx.Button(self, wx.ID_ANY, _('Cancel Mission'))
 		button_sizer = wx.BoxSizer(wx.HORIZONTAL)
-		button_sizer.Add(run_button)
-		button_sizer.Add(cancel_button)
+		button_sizer.Add(self.run_button)
+		button_sizer.Add(self.cancel_button)
+		self.cancel_button.Disable()
 		sizer.Add(slider,1, flag = wx.EXPAND | wx.ALL)
-		sizer.Add(button_sizer,1)
+		sizer.Add(button_sizer,1, wx.EXPAND)
 		self.SetSizer(sizer)
-		self.Bind(wx.EVT_BUTTON, self.OnRun, run_button)
-		self.Bind(wx.EVT_BUTTON, self.OnCancel, cancel_button)
+		self.Bind(wx.EVT_BUTTON, self.OnRun, self.run_button)
+		self.Bind(wx.EVT_BUTTON, self.OnCancel, self.cancel_button)
 	def TranslateDifficulty(self, value):
-		return self.parent.TranslateDifficulty(value)
+		return _(self.parent.TranslateDifficulty(value))
 	def OnRun(self, evt):
-		return self.parent.OnRun(evt)
+		if self.mission_player is None or self.mission_player.done:
+			self.cancel_button.Enable()
+			self.run_button.SetLabel(_('Pause'))
+			mission_player = Mission.generate(self.slider.GetValue())
+			mission_player.subscribe(parent.OnMissionPlayer)
+			mission_player.start()
 	def OnCancel(self, evt):
 		return self.parent.OnCancel(evt)

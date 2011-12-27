@@ -11,7 +11,7 @@ _ = lambda x:x
 __THEADS__ = set()
 
 def difficulty_range():
-	return (0,10)
+	return (0,9)
 
 def authors():
 	return (
