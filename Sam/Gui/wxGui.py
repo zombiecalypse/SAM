@@ -35,13 +35,24 @@ class AboutDialog(wx.Dialog):
 		self.Layout()
 
 class MissionGenerator(wx.Frame):
+	difficulties = [
+					'toddler',
+					'kiddie',
+					'cadett',
+					'freshmen',
+					'officer',
+					'captain',
+					'veteran',
+					'survivor',
+					'actionhero',
+					'suicidal']
 	def __init__(self):
 		wx.Frame.__init__(self, None, wx.NewId(), "SAM")
 		self.languages = [dict(name = 'English'), dict(name = 'Deutsch')]
 		self._makeMenu()
 		sizer = wx.BoxSizer(wx.VERTICAL)
-		sizer.Add(self._makeControlls())
-		sizer.Add(self._makeFeedback())
+		sizer.Add(self._makeControlls(), 0, wx.EXPAND | wx.ALL)
+		sizer.Add(self._makeFeedback(), 1, wx.EXPAND)
 	def _makeMenu(self):
 		menuBar = wx.MenuBar()
 		with addMenu(menuBar, _("File")) as filemenu:
@@ -58,6 +69,11 @@ class MissionGenerator(wx.Frame):
 			about = helpmenu.Append(wx.ID_ABOUT, _("About"))
 			self.Bind(wx.EVT_MENU, self.OnAbout, about)
 		self.SetMenuBar(menuBar)
+	def TranslateDifficulty(self, val):
+		try: 
+			return self.difficulties[val]
+		except IndexError:
+			return val
 	def SetLanguage(self, language):
 		print language
 	def OnAbout(self, evt):
@@ -67,11 +83,34 @@ class MissionGenerator(wx.Frame):
 	def OnQuit(self, evt):
 		self.Close()
 	def _makeControlls(self):
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		min, max = difficulty_range()
-		slider = LabeledSlider(self, 'Difficulty', lambda x: "{:010d}".format(x), minValue = min, maxValue = max)
-		sizer.Add(slider, flag = wx.EXPAND | wx.ALL)
-		return sizer
+		return ControllPanel(self)
+	def OnRun(self, evt):
+		pass
+	def OnCancel(self, evt):
+		pass
 	def _makeFeedback(self):
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		return sizer
+class ControllPanel(wx.Panel):
+	def __init__(self, parent):
+		wx.Panel.__init__(self, parent)
+		self.parent = parent
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		min, max = difficulty_range()
+		slider = LabeledSlider(self, 'Difficulty', self.TranslateDifficulty, minValue = min, maxValue = max)
+		run_button = wx.Button(self, wx.ID_ANY, 'Run')
+		cancel_button = wx.Button(self, wx.ID_ANY, 'Cancel Mission')
+		button_sizer = wx.BoxSizer(wx.HORIZONTAL)
+		button_sizer.Add(run_button)
+		button_sizer.Add(cancel_button)
+		sizer.Add(slider,1, flag = wx.EXPAND | wx.ALL)
+		sizer.Add(button_sizer,1)
+		self.SetSizer(sizer)
+		self.Bind(wx.EVT_BUTTON, self.OnRun, run_button)
+		self.Bind(wx.EVT_BUTTON, self.OnCancel, cancel_button)
+	def TranslateDifficulty(self, value):
+		return self.parent.TranslateDifficulty(value)
+	def OnRun(self, evt):
+		return self.parent.OnRun(evt)
+	def OnCancel(self, evt):
+		return self.parent.OnCancel(evt)

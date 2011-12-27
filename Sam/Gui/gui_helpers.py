@@ -51,10 +51,10 @@ class LabeledSlider(wx.Panel):
 		self.slider = wx.Slider(self, *args, **kargs)
 		sizer = wx.BoxSizer(wx.VERTICAL)
 		self.translation = translation
-		sizer.Add(wx.StaticText(self, label = title), flag = wx.EXPAND | wx.HORIZONTAL)
-		sizer.Add(self.slider, flag = wx.EXPAND| wx.HORIZONTAL)
+		sizer.Add(wx.StaticText(self, label = title), flag = wx.EXPAND | wx.ALL)
+		sizer.Add(self.slider, flag = wx.EXPAND| wx.ALL)
 		self.label = wx.StaticText(self, label = '')
-		sizer.Add(self.label, flag = wx.EXPAND| wx.HORIZONTAL)
+		sizer.Add(self.label, flag = wx.EXPAND| wx.ALL)
 		self.Bind(wx.EVT_SLIDER, self.OnSlide, self.slider)
 		self.SetSizer(sizer)
 		self.label.SetLabel(str(self.translation(self.GetValue())))
