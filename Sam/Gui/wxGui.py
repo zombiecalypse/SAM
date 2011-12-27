@@ -69,8 +69,8 @@ class MissionGenerator(wx.Frame):
 	def _makeControlls(self):
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		min, max = difficulty_range()
-		slider = wx.Slider(self, minValue = min, maxValue = max)
-		sizer.Add(slider)
+		slider = LabeledSlider(self, 'Difficulty', lambda x: "{:010d}".format(x), minValue = min, maxValue = max)
+		sizer.Add(slider, flag = wx.EXPAND | wx.ALL)
 		return sizer
 	def _makeFeedback(self):
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
