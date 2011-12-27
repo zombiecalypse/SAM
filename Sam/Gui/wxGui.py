@@ -61,10 +61,10 @@ class MissionGenerator(wx.Frame):
 		with addMenu(menuBar, _("Settings")) as settingsmenu:
 			with addMenu(settingsmenu, _("Languages")) as languagemenu:
 				for language in self.languages:
-					lang = languagemenu.Append(wx.ID_ANY, language['name'])
-					def setToLanguage(l):
-						return lambda evt: self.SetLanguage(l)
-					self.Bind(wx.EVT_MENU, setToLanguage(language) , lang)
+					langEntry = languagemenu.Append(wx.ID_ANY, language['name'], kind=wx.ITEM_CHECK)
+					def setToLanguage(l, languagemenu, langEntry):
+						return lambda evt: self.SetLanguage(l, languagemenu, langEntry)
+					self.Bind(wx.EVT_MENU, setToLanguage(language, languagemenu, langEntry), langEntry)
 		with addMenu(menuBar, _("Help")) as helpmenu:
 			about = helpmenu.Append(wx.ID_ABOUT, _("About"))
 			self.Bind(wx.EVT_MENU, self.OnAbout, about)
@@ -74,7 +74,10 @@ class MissionGenerator(wx.Frame):
 			return self.difficulties[val]
 		except IndexError:
 			return val
-	def SetLanguage(self, language):
+	def SetLanguage(self, language, languagemenu, selectedEntry):
+		for entry in languagemenu.GetMenuItems():
+			languagemenu.Check(entry.GetId(), False)
+		languagemenu.Check(selectedEntry.GetId(), True)
 		print language
 	def OnAbout(self, evt):
 		about = AboutDialog(self)
