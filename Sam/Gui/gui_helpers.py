@@ -10,7 +10,10 @@ from ..helpers import version
 _ = lambda x:x
 __THEADS__ = set()
 
-author = "Aaron Karper <maergil@gmail.com>"
+def authors():
+	return (
+			"Aaron Karper &lt;maergil@gmail.com&gt;",
+		"Stefan Moser")
 
 _sam_logger = PyLogger.LoggerParent()
 debug = _sam_logger(PyLogger.Debug)
@@ -44,4 +47,7 @@ def addMenu(bar, name):
 	"Creates a submenu in the `bar` with the given name."
 	menu = wx.Menu()
 	yield menu
-	bar.Append(menu, name)
+	if isinstance(bar, wx.MenuBar):
+		bar.Append(menu, name)
+	elif isinstance(bar, wx.Menu):
+		bar.AppendSubMenu(menu, name)
