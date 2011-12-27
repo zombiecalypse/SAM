@@ -45,14 +45,23 @@ def doAsync(f,callback = _, args = tuple()):
 	__THREADS__.add(t)
 	t.start()
 
-class LabeledSlider(wx.Slider):
+class LabeledSlider(wx.Panel):
 	def __init__(self, parent, title, translation, *args, **kargs):
-		wx.Slider(parent, *args, **kargs)
+		wx.Panel.__init__(self,parent)
+		self.slider = wx.Slider(self, *args, **kargs)
 		sizer = wx.BoxSizer(wx.VERTICAL)
-		sizer.Add(wx.StaticText(parent, label = title))
-		sizer.Add(self)
-		self.label = wx.StaticText(parent, label = '')
-		sizer.Add(self.label)
+		self.translation = translation
+		sizer.Add(wx.StaticText(self, label = title), flag = wx.EXPAND | wx.HORIZONTAL)
+		sizer.Add(self.slider, flag = wx.EXPAND| wx.HORIZONTAL)
+		self.label = wx.StaticText(self, label = '')
+		sizer.Add(self.label, flag = wx.EXPAND| wx.HORIZONTAL)
+		self.Bind(wx.EVT_SLIDER, self.OnSlide, self.slider)
+		self.SetSizer(sizer)
+		self.label.SetLabel(str(self.translation(self.GetValue())))
+	def GetValue(self):
+		return self.slider.GetValue()
+	def OnSlide(self, evt):
+		self.label.SetLabel(str(self.translation(self.GetValue())))
 
 @contextmanager
 def addMenu(bar, name):
