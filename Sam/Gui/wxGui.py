@@ -50,12 +50,12 @@ class MissionGenerator(wx.Frame):
 		with addMenu(menuBar, _("Settings")) as settingsmenu:
 			with addMenu(settingsmenu, _("Languages")) as languagemenu:
 				for language in self.languages:
-					lang = languagemenu.Append(-1, language['name'])
+					lang = languagemenu.Append(wx.ID_ANY, language['name'])
 					def setToLanguage(l):
 						return lambda evt: self.SetLanguage(l)
 					self.Bind(wx.EVT_MENU, setToLanguage(language) , lang)
 		with addMenu(menuBar, _("Help")) as helpmenu:
-			about = helpmenu.Append(-1, _("About"))
+			about = helpmenu.Append(wx.ID_ABOUT, _("About"))
 			self.Bind(wx.EVT_MENU, self.OnAbout, about)
 		self.SetMenuBar(menuBar)
 	def SetLanguage(self, language):
@@ -63,9 +63,9 @@ class MissionGenerator(wx.Frame):
 	def OnAbout(self, evt):
 		about = AboutDialog(self)
 		about.ShowModal()
-		about.Destroy()
+		about.Close()
 	def OnQuit(self, evt):
-		self.Destroy()
+		self.Close()
 	def _makeControlls(self):
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		min, max = difficulty_range()
