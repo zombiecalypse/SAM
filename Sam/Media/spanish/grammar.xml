@@ -1,0 +1,51 @@
+﻿<Settings>
+  <Grammar>Spanish</Grammar>
+
+  <CommunicationsDownHeader>Las comunicaciones no existen</CommunicationsDownHeader>
+  <CommunicationsDownNoise></CommunicationsDownNoise>
+  <CommunicationsDownFooter>Las comunicaciones se han restablecido </CommunicationsDownFooter>
+
+  <AnnounceBeginFirstPhase>Comienza la primera fase</AnnounceBeginFirstPhase>
+  <AnnounceFirstPhaseEndsInOneMinute>Finaliza primera fase en 60 segundos</AnnounceFirstPhaseEndsInOneMinute>
+  <AnnounceFirstPhaseEndsInTwentySeconds>Finaliza primera fase en 20 segundos</AnnounceFirstPhaseEndsInTwentySeconds>
+  <AnnounceFirstPhaseEnds>Finaliza primera fase</AnnounceFirstPhaseEnds>
+  <AnnounceSecondPhaseBegins>Comienza la segunda fase</AnnounceSecondPhaseBegins>
+  <AnnounceSecondPhaseEndsInOneMinute>Segunda fase finaliza en 60 segundos </AnnounceSecondPhaseEndsInOneMinute>
+  <AnnounceSecondPhaseEndsInTwentySeconds>Segunda fase finaliza en 20 segundos </AnnounceSecondPhaseEndsInTwentySeconds>
+  <AnnounceSecondPhaseEnds>Finaliza la segunda fase</AnnounceSecondPhaseEnds>
+  <AnnounceThirdPhaseBegins>Comienza la tercera fase</AnnounceThirdPhaseBegins>
+  <AnnounceThirdPhaseEndsInOneMinute>Tercera fase termina en 60 segundos</AnnounceThirdPhaseEndsInOneMinute>
+  <AnnounceThirdPhaseEndsInTwentySeconds>Tercera fase termina en 20 segundos</AnnounceThirdPhaseEndsInTwentySeconds>
+  <AnnounceThirdPhaseEnds>Tercera fase termina</AnnounceThirdPhaseEnds>
+
+  <IncomingData>Datos entrantes</IncomingData>
+  <DataTransfer>Transferencia de datos</DataTransfer>
+
+  <AlertHeader>¡Alerta!</AlertHeader>
+  <InternalThreat>amenaza interna</InternalThreat>
+  <SeriousInternalThreat>interior amenaza grave</SeriousInternalThreat>
+  <Repeat>Repita</Repeat>
+  <UnconfirmedReport>Informe cuestionable</UnconfirmedReport>
+
+  <TimeTPlus1>Tiempo T+1</TimeTPlus1>
+  <TimeTPlus2>Tiempo T+2</TimeTPlus2>
+  <TimeTPlus3>Tiempo T+3</TimeTPlus3>
+  <TimeTPlus4>Tiempo T+4</TimeTPlus4>
+  <TimeTPlus5>Tiempo T+5</TimeTPlus5>
+  <TimeTPlus6>Tiempo T+6</TimeTPlus6>
+  <TimeTPlus7>Tiempo T+7</TimeTPlus7>
+  <TimeTPlus8>Tiempo T+8</TimeTPlus8>
+
+  <RedAlertLevel0></RedAlertLevel0>
+  <RedAlertLevel1></RedAlertLevel1>
+  <RedAlertLevel2></RedAlertLevel2>
+  <RedAlertLevel3></RedAlertLevel3>
+
+  <ThreatZoneBlue>amenaza en la zona azul</ThreatZoneBlue>
+  <ThreatZoneRed>amenaza en la zona roja</ThreatZoneRed>
+  <ThreatZoneWhite>amenaza en la zona blanca</ThreatZoneWhite>
+  <SeriousThreatZoneBlue>grave amenaza en la zona azul</SeriousThreatZoneBlue>
+  <SeriousThreatZoneRed>grave amenaza en la zona roja</SeriousThreatZoneRed>
+  <SeriousThreatZoneWhite>grave amenaza en la zona blanca</SeriousThreatZoneWhite>
+
+</Settings>

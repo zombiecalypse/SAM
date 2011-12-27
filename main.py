@@ -4,6 +4,8 @@
 # Author:   Aaron Karper
 # Created:  2011-11-29
 #
+import sys
+sys.path.append('./Python-Logger')
 from Sam import MissionGenerator
 from Sam import version
 import wx
