@@ -13,11 +13,6 @@ __THEADS__ = set()
 def difficulty_range():
 	return (0,9)
 
-def authors():
-	return (
-			"Aaron Karper &lt;maergil@gmail.com&gt;",
-		"Stefan Moser &lt;smmuzi@gmail.com&gt;")
-
 _sam_logger = PyLogger.LoggerParent()
 debug = _sam_logger(PyLogger.Debug)
 log = _sam_logger(PyLogger.Log)

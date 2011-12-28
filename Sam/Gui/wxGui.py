@@ -11,30 +11,27 @@ import wx, wx.html
 from .gui_helpers import *
 from .gui_helpers import _
 
-class AboutDialog(wx.Dialog):
-	aboutText = """
-	<html>
-		<body>
-		<h1>SAM {version}</h1>
-		<h2>Space Alert Missions</h2>
-		<div style="bottom: 0; position: absolute;">By <ul>{authors}</ul></div>
-		</body>
-	</html>
-	"""
+class AboutDialog(wx.AboutDialogInfo):
 	def __init__(self, parent):
-		wx.Dialog.__init__(self,parent, wx.NewId(), "About SAM")
-		info = wx.html.HtmlWindow(self)
-		authors_string = "\n".join('<li>{}</li>'.format(author) for author in authors())
-		info.SetPage(self.aboutText.format(
-			version = version,
-			authors = authors_string
-			))
-		button = wx.Button(self, wx.ID_OK, _("Ok"))
-		sizer = wx.BoxSizer(wx.VERTICAL)
-		sizer.Add(info, 1, wx.EXPAND | wx.ALL, border=5)
-		sizer.Add(button, 0, wx.ALIGN_CENTER | wx.ALL)
-		self.SetSizer(sizer)
-		self.Layout()
+		super(AboutDialog, self).__init__()
+		description = """Space Alert Mission-generator, in short SAM, is an
+		application for generating missions for the highly addictive board game
+		space alert."""
+
+		licence = """SAM is free software; you can redistribute 
+		it and/or modify it under the terms of the GNU General Public License v3 """
+
+		#self.SetIcon(wx.Icon('hunter.png', wx.BITMAP_TYPE_PNG))
+		authors='Aaron Karper, Stefan Moser'
+		self.SetName('Space Alert Mission-generator')
+		self.SetVersion(version)
+		self.SetDescription(description)
+		self.SetWebSite('http://www.github.com/zombicalypse/SAM')
+		self.SetLicence(licence)
+		self.AddDeveloper(authors)
+		self.AddDocWriter(authors)
+		self.AddArtist(authors)
+		self.AddTranslator(authors)
 
 class MissionGenerator(wx.Frame):
 	difficulties = [
@@ -62,7 +59,7 @@ class MissionGenerator(wx.Frame):
 		#TODO: make mission player
 		self.mission_player = None
 		if not self.mission_player is None:
-			dial = wx.MessageDialog(None, 'Are you sure you want to exit?', 'ZOMFG?!?',
+			dial = wx.MessageDialog(None, 'Are really that scared?!?', 'Abort mission?',
 				wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION)
 			ret = dial.ShowModal()
 			if ret == wx.ID_YES:
@@ -108,9 +105,7 @@ class MissionGenerator(wx.Frame):
 		languagemenu.Check(selectedEntry.GetId(), True)
 		print language
 	def OnAbout(self, evt):
-		about = AboutDialog(self)
-		about.ShowModal()
-		about.Close()
+		wx.AboutBox(AboutDialog(self))
 	def OnQuit(self, evt):
 		self.Close()
 	def _makeControlls(self):
@@ -146,7 +141,7 @@ class ControllPanel(wx.Panel):
 		self.SetSizer(sizer)
 	def MakeButtons(self):
 		self.run_button = wx.Button(self, wx.ID_ANY, _('Run'))
-		self.cancel_button = wx.Button(self, wx.ID_ANY, _('Cancel Mission'))
+		self.cancel_button = wx.Button(self, wx.ID_STOP, _('Cancel Mission'))
 		self.cancel_button.Disable()
 		self.Bind(wx.EVT_BUTTON, self.OnRun, self.run_button)
 		self.Bind(wx.EVT_BUTTON, self.OnCancel, self.cancel_button)
