@@ -14,7 +14,7 @@ from .gui_helpers import _
 class AboutDialog(wx.AboutDialogInfo):
 	def __init__(self, parent):
 		super(AboutDialog, self).__init__()
-		description = """Space Alert Mission-generator, in short SAM, is an
+		description = """Space Alert Mission-generator, in short SAM, is an 
 		application for generating missions for the highly addictive board game
 		space alert."""
 
@@ -22,11 +22,11 @@ class AboutDialog(wx.AboutDialogInfo):
 		it and/or modify it under the terms of the GNU General Public License v3 """
 
 		#self.SetIcon(wx.Icon('hunter.png', wx.BITMAP_TYPE_PNG))
-		authors='Aaron Karper, Stefan Moser'
+		authors='''Aaron Karper, Stefan Moser'''
 		self.SetName('Space Alert Mission-generator')
 		self.SetVersion(version)
 		self.SetDescription(description)
-		self.SetWebSite('http://www.github.com/zombicalypse/SAM')
+		self.SetWebSite('http://www.github.com/zombiecalypse/SAM')
 		self.SetLicence(licence)
 		self.AddDeveloper(authors)
 		self.AddDocWriter(authors)
