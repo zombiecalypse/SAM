@@ -77,7 +77,7 @@ class MissionGenerator(wx.Frame):
 			mylocale.AddCatalog(language['file'])
 		self._ = wx.GetTranslation
 		#For testing:
-		print wx.GetTranslation('file')
+		print(wx.GetTranslation('file'))
 	def _makeMenu(self):
 		menuBar = wx.MenuBar()
 		with addMenu(menuBar, _("File")) as filemenu:
@@ -103,7 +103,7 @@ class MissionGenerator(wx.Frame):
 		for entry in languagemenu.GetMenuItems():
 			languagemenu.Check(entry.GetId(), False)
 		languagemenu.Check(selectedEntry.GetId(), True)
-		print language
+		print(language)
 	def OnAbout(self, evt):
 		wx.AboutBox(AboutDialog(self))
 	def OnQuit(self, evt):
