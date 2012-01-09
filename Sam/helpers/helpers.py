@@ -71,7 +71,7 @@ class func_name:
 		return f
 
 
-def accessor(string, logger = _, type = _, immutable = False):
+def accessor(string, logger = _, type = _, immutable = False, doc = ""):
 	"""Shortcut to define a property object with type checking and logging"""
 	attrname = "_%s" %string
 	getter = lambda self: getattr(self, attrname)
@@ -81,8 +81,8 @@ def accessor(string, logger = _, type = _, immutable = False):
 		@func_name(string)
 		def setter(self, val):
 			setattr(self,attrname, val)
-		return property(getter,setter)
+		return property(getter,setter, doc = doc)
 	else:
-		return property(getter)
+		return property(getter, doc = doc)
 
 

@@ -6,7 +6,7 @@
 # Description:
 #           The mission statement and functions that generate them.
 
-from helpers import accessor
+from ..helpers import accessor
 
 class Mission(object):
 
