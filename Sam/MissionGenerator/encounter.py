@@ -1,4 +1,5 @@
 from ..helpers import *
+from functools import reduce
 class Encounter(object):
 	SERIOUS, NON_SERIOUS = 10, 0
 	INTERNAL, EXTERNAL = 5, 0
