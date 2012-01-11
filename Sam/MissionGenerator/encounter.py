@@ -21,6 +21,8 @@ class Event(object):
 	def inherentDanger(self):
 		raise NotImplemented()
 
+	time = accessor('time', immutable = True, doc = 'The appearance of the Encounter')
+
 	def relativeDanger(self, other_encounters):
 		"""The danger of this encounter imposed from the relation to other
 		encounters.
@@ -66,7 +68,6 @@ class Encounter(Event):
 		self._seriousnessDanger = seriousness
 		self._positionalDanger = positional
 	
-	time = accessor('time', immutable = True, doc = 'The appearance of the Encounter')
 	seriousnessDanger = accessor('seriousnessDanger', immutable = True, doc = 'The danger imposed from being serious or normal')
 	positionalDanger = accessor('positionalDanger', immutable = True, doc = 'The danger imposed from being external or internal')
 
