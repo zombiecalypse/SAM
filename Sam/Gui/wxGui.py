@@ -9,7 +9,8 @@
 from threading import Thread
 import wx, wx.html
 from .gui_helpers import *
-from .gui_helpers import _
+from ..helpers import languages
+from wx import GetTranslation as _
 
 class AboutDialog(wx.AboutDialogInfo):
 	def __init__(self, parent):
@@ -69,13 +70,10 @@ class MissionGenerator(wx.Frame):
 		else: 
 			self.Destroy()
 	def initLanguages(self):
-		self.languages = [dict(name = 'English', file=''), 
-							dict(name = 'Deutsch', file='translation_de')]
 		mylocale = wx.Locale()
 		mylocale.AddCatalogLookupPathPrefix('.')
-		for language in self.languages:
+		for language in languages.getAllLanguages():
 			mylocale.AddCatalog(language['file'])
-		self._ = wx.GetTranslation
 		#For testing:
 		print(wx.GetTranslation('file'))
 	def _makeMenu(self):
@@ -85,7 +83,7 @@ class MissionGenerator(wx.Frame):
 			self.Bind(wx.EVT_MENU, self.OnQuit, quit)
 		with addMenu(menuBar, _("Settings")) as settingsmenu:
 			with addMenu(settingsmenu, _("Languages")) as languagemenu:
-				for language in self.languages:
+				for language in languages.getAllLanguages():
 					langEntry = languagemenu.Append(wx.ID_ANY, language['name'], kind=wx.ITEM_CHECK)
 					def setToLanguage(l, languagemenu, langEntry):
 						return lambda evt: self.SetLanguage(l, languagemenu, langEntry)
