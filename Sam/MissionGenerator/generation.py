@@ -7,9 +7,10 @@
 #           
 from random import Random
 from ..helpers import accessor
+from .mission import Mission
 
 class MissionGenerator(object):
-	difficulty = accessor('difficulty', float)
+	difficulty = accessor('difficulty', type = float)
 	MAX_ITERATIONS = 1000
 	def __init__(self, 
 			difficulty = 50, 
@@ -25,5 +26,22 @@ class MissionGenerator(object):
 				serious_threats = use_serious_threats)
 	def generate(self):
 		for i,solution in enumerate(self._generateIteratively()):
-			if 0.9 < solution.difficulty()/self.difficulty < 1.1 or i > self.MAX_ITERATIONS:
+			if 0.9 < self._fitness(solution) < 1.1 or i > self.MAX_ITERATIONS:
 				return solution
+
+	def _fitness(self, solution):
+		return solution.difficulty/self.difficulty
+
+	def _generateIteratively(self):
+		sample = self._generateSample()
+		while True:
+			yield sample
+			sample = self._mutate(sample)
+
+	@staticmethod
+	def _generateSample():
+		return Mission.random()
+
+	@staticmethod
+	def _mutate(sample):
+		return sample.mutate()

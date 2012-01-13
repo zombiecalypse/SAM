@@ -51,10 +51,16 @@ class Logging:
 	def __call__(self, func):
 		@wraps(func)
 		def modified(*args, **key):
-			with Indent(self.__logger, self.__logger.parent):
+			if hasattr(self.__logger, 'parent'):
+				with Indent(self.__logger, self.__logger.parent):
+					arguments = self.func_arg(args,key)
+					self.__logger("%s%s" % (func.func_name, arguments))
+					return func(*args, **key)
+			else:
 				arguments = self.func_arg(args,key)
 				self.__logger("%s%s" % (func.func_name, arguments))
 				return func(*args, **key)
+				
 		return modified
 class loggingf(Logging):
 	pass
