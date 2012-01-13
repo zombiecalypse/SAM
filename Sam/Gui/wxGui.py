@@ -48,6 +48,7 @@ class MissionGenerator(wx.Frame):
 					'suicidal']
 	def __init__(self):
 		wx.Frame.__init__(self, None, wx.NewId(), "SAM")
+		self.SetMinSize((400, 400))
 		self.initLanguages()
 		self._makeMenu()
 		sizer = wx.BoxSizer(wx.VERTICAL)
@@ -60,7 +61,7 @@ class MissionGenerator(wx.Frame):
 		#TODO: make mission player
 		self.mission_player = None
 		if not self.mission_player is None:
-			dial = wx.MessageDialog(None, 'Are really that scared?!?', 'Abort mission?',
+			dial = wx.MessageDialog(None, _('Are really that scared?!?'), _('Abort mission?'),
 				wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION)
 			ret = dial.ShowModal()
 			if ret == wx.ID_YES:
@@ -71,11 +72,11 @@ class MissionGenerator(wx.Frame):
 			self.Destroy()
 	def initLanguages(self):
 		mylocale = wx.Locale()
-		mylocale.AddCatalogLookupPathPrefix('.')
+		mylocale.AddCatalogLookupPathPrefix('./Sam/Media/strings')
 		for language in languages.getAllLanguages():
 			mylocale.AddCatalog(language['file'])
 		#For testing:
-		print(wx.GetTranslation('file'))
+		print(wx.GetTranslation('File'))
 	def _makeMenu(self):
 		menuBar = wx.MenuBar()
 		with addMenu(menuBar, _("File")) as filemenu:
@@ -133,7 +134,7 @@ class ControllPanel(wx.Panel):
 		self.parent = parent
 		sizer = wx.BoxSizer(wx.HORIZONTAL)		
 		min, max = difficulty_range()
-		slider = LabeledSlider(self, _('Difficulty'), self.TranslateDifficulty, minValue = min, maxValue = max)
+		slider = LabeledSlider(self, _('Difficulty'), lambda x: _(self.TranslateDifficulty(x)), minValue = min, maxValue = max)
 		sizer.Add(slider, 1, wx.EXPAND | wx.ALL, border=5)
 		sizer.Add(self.MakeButtons(), 0, wx.CENTER | wx.ALL | wx.ALIGN_RIGHT, border=5)
 		self.SetSizer(sizer)
