@@ -6,7 +6,7 @@ Created on Dec 28, 2011
 
 import pygame.mixer as player
 
-class SoundPlayer():
+class SoundPlayer(object):
     '''
     Helper class to play sounds
     '''

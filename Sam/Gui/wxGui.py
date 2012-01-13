@@ -9,7 +9,8 @@
 from threading import Thread
 import wx, wx.html
 from .gui_helpers import *
-from .gui_helpers import _
+from ..helpers import languages
+from wx import GetTranslation as _
 
 class AboutDialog(wx.AboutDialogInfo):
 	def __init__(self, parent):
@@ -47,6 +48,7 @@ class MissionGenerator(wx.Frame):
 					'suicidal']
 	def __init__(self):
 		wx.Frame.__init__(self, None, wx.NewId(), "SAM")
+		self.SetMinSize((400, 400))
 		self.initLanguages()
 		self._makeMenu()
 		sizer = wx.BoxSizer(wx.VERTICAL)
@@ -59,7 +61,7 @@ class MissionGenerator(wx.Frame):
 		#TODO: make mission player
 		self.mission_player = None
 		if not self.mission_player is None:
-			dial = wx.MessageDialog(None, 'Are really that scared?!?', 'Abort mission?',
+			dial = wx.MessageDialog(None, _('Are really that scared?!?'), _('Abort mission?'),
 				wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION)
 			ret = dial.ShowModal()
 			if ret == wx.ID_YES:
@@ -69,15 +71,12 @@ class MissionGenerator(wx.Frame):
 		else: 
 			self.Destroy()
 	def initLanguages(self):
-		self.languages = [dict(name = 'English', file=''), 
-							dict(name = 'Deutsch', file='translation_de')]
 		mylocale = wx.Locale()
-		mylocale.AddCatalogLookupPathPrefix('.')
-		for language in self.languages:
+		mylocale.AddCatalogLookupPathPrefix('./Sam/Media/strings')
+		for language in languages.getAllLanguages():
 			mylocale.AddCatalog(language['file'])
-		self._ = wx.GetTranslation
 		#For testing:
-		print(wx.GetTranslation('file'))
+		print(wx.GetTranslation('File'))
 	def _makeMenu(self):
 		menuBar = wx.MenuBar()
 		with addMenu(menuBar, _("File")) as filemenu:
@@ -85,7 +84,7 @@ class MissionGenerator(wx.Frame):
 			self.Bind(wx.EVT_MENU, self.OnQuit, quit)
 		with addMenu(menuBar, _("Settings")) as settingsmenu:
 			with addMenu(settingsmenu, _("Languages")) as languagemenu:
-				for language in self.languages:
+				for language in languages.getAllLanguages():
 					langEntry = languagemenu.Append(wx.ID_ANY, language['name'], kind=wx.ITEM_CHECK)
 					def setToLanguage(l, languagemenu, langEntry):
 						return lambda evt: self.SetLanguage(l, languagemenu, langEntry)
@@ -135,7 +134,7 @@ class ControllPanel(wx.Panel):
 		self.parent = parent
 		sizer = wx.BoxSizer(wx.HORIZONTAL)		
 		min, max = difficulty_range()
-		slider = LabeledSlider(self, _('Difficulty'), self.TranslateDifficulty, minValue = min, maxValue = max)
+		slider = LabeledSlider(self, _('Difficulty'), lambda x: _(self.TranslateDifficulty(x)), minValue = min, maxValue = max)
 		sizer.Add(slider, 1, wx.EXPAND | wx.ALL, border=5)
 		sizer.Add(self.MakeButtons(), 0, wx.CENTER | wx.ALL | wx.ALIGN_RIGHT, border=5)
 		self.SetSizer(sizer)
