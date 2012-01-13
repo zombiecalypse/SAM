@@ -7,32 +7,41 @@
 #           The mission statement and functions that generate them.
 
 from ..helpers import accessor
+from .encounter import Event
+import random as _random
 
 class Mission(object):
 
-	terror_red = accessor('terror_red')
-	terror_white = accessor('terror_white')
-	terror_blue = accessor('terror_blue')
-	terror_internal = accessor('terror_internal')
-	ship = accessor('ship')
+	encounters = accessor('encounters', immutable = True)
+
+	def __init__(self, encounters = list()):
+		self._encounters = encounters
+
+	def encountersAt(self, time):
+		return set(enc for enc in self.encounters if time == enc.time)
+	def encountersUntil(self, time):
+		return set(enc for enc in self.encounters if time <= enc.time)
 
 	@property
-	def terror(self):
-		return dict(
-				red = self.terror_red,
-				white = self.terror_white,
-				blue = self.terror_blue,
-				internal = self.terror_internal)
-	def __init__(self):
-		self.terror_red = TerrorRow(self)
-		self.terror_blue = TerrorRow(self)
-		self.terror_white = TerrorRow(self)
-		self.terror_internal = TerrorRow(self)
+	def difficulty(self):
+		base_value = sum(encounter.inherentDanger for encounter in self.encounters)
+		relational_value = sum(encounter.relativeDanger(self.encounters) for encounter in self.encounters)
+		return base_value + relational_value
+	
+	@classmethod
+	def random(cls):
+		return Mission().mutate()
 
-	def addEncounter(self, time, encounter):
-		self.encounters.add((time, encounter))
-	def encountersAt(self, time):
-		return set(enc for t,enc in self.encounters if time == t)
-	def encountersUntil(self, time):
-		return set(enc for t,enc in self.encounters if time <= t)
+	def mutate(self, random = _random):
+		f = random.choice((
+			lambda rand : self._removeEncounter(rand), 
+			lambda rand : self._addEncounter(rand)))
+		return f(random)
 
+	def _removeEncounter(self, random):
+		encounter = random.choice(self.encounters) if self.encounters else None
+		return Mission([enc for enc in self.encounters if enc != encounter])
+
+	def _addEncounter(self, random):
+		encounter = Event.generateRandom(random)
+		return Mission(self.encounters + [encounter])

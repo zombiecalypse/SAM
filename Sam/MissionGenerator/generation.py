@@ -42,6 +42,5 @@ class MissionGenerator(object):
 	def _generateSample():
 		return Mission.random()
 
-	@staticmethod
-	def _mutate(sample):
-		return sample.mutate()
+	def _mutate(self, sample):
+		return sample.mutate(self._random)

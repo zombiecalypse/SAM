@@ -16,14 +16,14 @@ class MissionGeneratorTest(unittest.TestCase):
 	def test_simple_missions(self):
 		for seed in self.seeds:
 			mission = MissionGenerator(difficulty = 40, seed = seed).generate()
-			self.assertAlmostEqual(40, mission.difficulty(), places = -1)
+			self.assertAlmostEqual(40, mission.difficulty, delta = 10)
 
 	def test_medium_missions(self):
 		for seed in self.seeds:
 			mission = MissionGenerator(60, seed = seed).generate()
-			self.assertAlmostEqual(60, mission.difficulty(), places = -1)
+			self.assertAlmostEqual(60, mission.difficulty, delta = 10)
 
 	def test_hard_missions(self):
 		for seed in self.seeds:
 			mission = MissionGenerator(100, seed = seed).generate()
-			self.assertAlmostEqual(100, mission.difficulty(), places = -1)
+			self.assertAlmostEqual(100, mission.difficulty, delta = 10)
